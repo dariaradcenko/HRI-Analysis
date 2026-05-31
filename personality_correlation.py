@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 # Load the data
-questionnaire = pd.ExcelFile('data/questionnaire.xlsx')
+questionnaire = pd.ExcelFile('congreg8/questionnaire.xlsx')
 personality = pd.read_excel(questionnaire, sheet_name='Personality', header=None)
 
 # Define column names based on the descriptions from the data set
@@ -110,9 +110,10 @@ axes[0].set_title('Personality vs Behavior (Spearman r (p < 0.05))')
 plt.colorbar(im, ax=axes[0], label='Correlation r')
 
 # Annotate cells
-for i, j in zip(range(len(big_five_labels)), range(len(behavior_labels))):
-    r_val = r_matrix.values[i, j]
-    axes[0].text(j, i, f'{r_val:+.2f}', ha='center', va='center', fontsize=9, color='black')
+for i in range(len(big_five_labels)):
+    for j in range(len(behavior_labels)):
+        r_val    = r_matrix.values[i, j]
+        axes[0].text(j, i, f'{r_val:+.2f}',ha='center', va='center', fontsize=9, color='black')
 
 # Create the scatter plot with the strongest correlation
 human_strongest = human_corr_df.loc[human_corr_df['r'].abs().idxmax()]
