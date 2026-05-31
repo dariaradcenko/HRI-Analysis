@@ -65,34 +65,32 @@ angle_measures = {
 
 # Create distance plots
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-fig.suptitle('Distance to Newcomer: Human vs Robot', fontsize=15)
+fig.suptitle('Distance to Newcomer: Human vs Robot', fontsize=20)
 
 for ax, (label, col) in zip(axes, distance_measures.items()):
     h = human[col].dropna()
     r = robot[col].dropna()
-    _, p = stats.mannwhitneyu(h, r, alternative='two-sided')
     bp   = ax.boxplot([h, r], labels=['Human', 'Robot'], patch_artist=True, medianprops=dict(color='black', linewidth=2))
     bp['boxes'][0].set_facecolor('teal')
     bp['boxes'][1].set_facecolor('darkgoldenrod')
-    ax.set_title(f'{label} (p={p:.4f})', fontsize=9)
-    ax.set_ylabel(col)
+    ax.set_title(f'{label}', fontsize=15)
+    ax.set_ylabel(col, fontsize=12)
 
 plt.tight_layout()
 plt.savefig('plots/stats_distance.png', dpi=150)
 
 # Create angle plots
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
-fig.suptitle('Body Orientation: Human vs Robot', fontsize=15)
+fig.suptitle('Body Orientation: Human vs Robot', fontsize=20)
 
 for ax, (label, col) in zip(axes, angle_measures.items()):
     h = human[col].dropna()
     r = robot[col].dropna()
-    _, p = stats.mannwhitneyu(h, r, alternative='two-sided')
     bp   = ax.boxplot([h, r], labels=['Human', 'Robot'], patch_artist=True, medianprops=dict(color='black', linewidth=2))
     bp['boxes'][0].set_facecolor('teal')
     bp['boxes'][1].set_facecolor('darkgoldenrod')
-    ax.set_title(f'{label} (p={p:.4f})', fontsize=9)
-    ax.set_ylabel(col)
+    ax.set_title(f'{label}', fontsize=15)
+    ax.set_ylabel(col, fontsize=12)
 
 plt.tight_layout()
 plt.savefig('plots/stats_angle.png', dpi=150)

@@ -38,7 +38,7 @@ diff = mean_human.mean() - mean_robot.mean()
 
 # Create the plot
 fig, ax = plt.subplots()
-fig.suptitle('Time Series Analysis: Body Orientation', fontsize=15)
+fig.suptitle('Mean Body Orientation Trajectory', fontsize=15)
 
 # Plot mean trajectories with confidence bands
 ax.plot(trajectory, mean_human, color='teal', linewidth=2, label='Human newcomer')
@@ -55,7 +55,6 @@ sig_patch = mpatches.Patch(color='gray', alpha=0.3, label='p < 0.05')
 ax.legend(handles=[ax.lines[0], ax.lines[1], sig_patch], fontsize=9)
 ax.set_xlabel('Trial progress (%)')
 ax.set_ylabel('Mean orientation angle (°)')
-ax.set_title('Mean orientation trajectory')
 
 plt.tight_layout()
 plt.savefig('plots/tsa.png', dpi=150)

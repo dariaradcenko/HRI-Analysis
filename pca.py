@@ -48,38 +48,38 @@ data[['trial_id', 'condition', 'PC1', 'PC2']].to_csv('data/pca_results.csv', ind
 
 
 # Create plots
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
-fig.suptitle('Principal Component Analysis', fontsize=15)
+fig, ax = plt.subplots()
 
 # Plot the trials in PC space
 human_pca = data[data['condition'] == 'human']
 robot_pca = data[data['condition'] == 'robot']
-axes[0].scatter(human_pca['PC1'], human_pca['PC2'], alpha=0.5, color='teal', s=30, label='Human')
-axes[0].scatter(robot_pca['PC1'], robot_pca['PC2'], alpha=0.5, color='darkgoldenrod', s=30, label='Robot')
+ax.scatter(human_pca['PC1'], human_pca['PC2'], alpha=0.5, color='teal', s=30, label='Human')
+ax.scatter(robot_pca['PC1'], robot_pca['PC2'], alpha=0.5, color='darkgoldenrod', s=30, label='Robot')
 
 # Mark the centroid of each condition
-axes[0].scatter(human_pca['PC1'].mean(), human_pca['PC2'].mean(), color='teal', s=150, marker='X', label='Human centroid')
-axes[0].scatter(robot_pca['PC1'].mean(), robot_pca['PC2'].mean(), color='darkgoldenrod', s=150, marker='X', label='Robot centroid')
+ax.scatter(human_pca['PC1'].mean(), human_pca['PC2'].mean(), color='teal', s=150, marker='X', label='Human centroid')
+ax.scatter(robot_pca['PC1'].mean(), robot_pca['PC2'].mean(), color='darkgoldenrod', s=150, marker='X', label='Robot centroid')
 
-axes[0].set_xlabel(f'PC1')
-axes[0].set_ylabel(f'PC2')
-axes[0].set_title(f'Trials in multimodal response space')
-axes[0].legend(fontsize=8)
-axes[0].axhline(0, color='gray', linestyle='--', linewidth=0.5)
-axes[0].axvline(0, color='gray', linestyle='--', linewidth=0.5)
+ax.set_xlabel(f'PC1')
+ax.set_ylabel(f'PC2')
+fig.suptitle(f'Trials in Multimodal Response Space', fontsize=15)
+ax.legend(fontsize=8)
+ax.axhline(0, color='gray', linestyle='--', linewidth=0.5)
+ax.axvline(0, color='gray', linestyle='--', linewidth=0.5)
+plt.savefig('plots/pca1.png', dpi=150)
 
-
+fig, ax = plt.subplots()
 # Plot the loadings as barplots
 x = np.arange(len(pca_cols))
-axes[1].bar(x - 0.35/2, loadings.loc['PC1'], width=0.35, label='PC1', color='teal')
-axes[1].bar(x + 0.35/2, loadings.loc['PC2'], width=0.35, label='PC2', color='darkgoldenrod')
+ax.bar(x - 0.35/2, loadings.loc['PC1'], width=0.35, label='PC1', color='teal')
+ax.bar(x + 0.35/2, loadings.loc['PC2'], width=0.35, label='PC2', color='darkgoldenrod')
 
-axes[1].set_xticks(x)
-axes[1].set_xticklabels(['Distance', 'Angle', 'Angle\nChange', 'Hull\nArea', 'Hull\nChange'], fontsize=9)
-axes[1].axhline(0, color='black', linewidth=0.5)
-axes[1].set_ylabel('Loading')
-axes[1].set_title('Component loadings')
-axes[1].legend(fontsize=9)
+ax.set_xticks(x)
+ax.set_xticklabels(['Distance', 'Angle', 'Angle\nChange', 'Hull\nArea', 'Hull\nChange'], fontsize=9)
+ax.axhline(0, color='black', linewidth=0.5)
+ax.set_ylabel('Loading')
+fig.suptitle('Principal Component Loadings', fontsize=15)
+ax.legend(fontsize=9)
 
 plt.tight_layout()
-plt.savefig('plots/pca.png', dpi=150)
+plt.savefig('plots/pca2.png', dpi=150)
